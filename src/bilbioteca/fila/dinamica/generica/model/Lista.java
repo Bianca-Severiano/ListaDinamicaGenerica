@@ -120,15 +120,24 @@ public class Lista<T> {
 	}
 	
 	public void remove (int index) throws Exception {
-		if (isEmpty()) {
-			throw new Exception("Lista Vazia");
-		}
-		
-		NoLista<T> anterior = new NoLista<>();
-		NoLista<T> no = new NoLista<>();
-		no = getNo(index);
-		anterior = getNo(index - 1);
-		anterior.proximo = no.proximo;		
+        if (isEmpty()) {
+            throw new Exception("Empty list");
+        }
+
+        int size = size();
+        if ((index < 0) || (index > size - 1)) {
+            throw new Exception("Invalid index");
+        }
+
+        if (index == 0) {
+            removeFirst();
+        } else if (index == size - 1) {
+            removeLast();
+        } else {
+            NoLista<T> last = getNo(index - 1);
+            NoLista<T> node = getNo(index);
+            last.proximo = node.proximo;
+        }
 	}
 	
 	public T get(int index) throws Exception{
